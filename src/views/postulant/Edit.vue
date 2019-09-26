@@ -92,7 +92,7 @@ export default {
     submit() {
       // TODO definir la ruta POST a donde enviaremos los datos.
       /*
-      axios.post(URL).then(()=>{}).catch((error)=>{console.log('error', error)});
+      axios.post(URL).then(()=>{}).catch((error)=>{console.log("error", error)});
        */
     }
   }
