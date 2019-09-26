@@ -15,7 +15,12 @@ export default new Router({
     },
     {
       path: "/postulant",
-      name: "postulant",
+      name: "postulant-create",
+      component: () => import("./views/postulant/Index.vue")
+    },
+    {
+      path: "/postulant/create",
+      name: "postulant-create",
       component: () => import("./views/postulant/Edit.vue")
     },
     {
