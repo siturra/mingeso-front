@@ -41,6 +41,21 @@
                 v-model="form.birthDate"
               />
             </div>
+
+            <!-- Carrera a la que postula -->
+            <div class="form-group">
+              <label for="career">Carrera a la que postula</label>
+              <select class="form-control" id="career" v-model="form.career">
+                <option v-for="(item, index) in careers" v-bind:key="index">
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Button submit -->
+            <div class="form-group">
+              <button class="btn btn-primary">Grabar!</button>
+            </div>
           </form>
         </div>
       </div>
@@ -52,6 +67,7 @@
 export default {
   data() {
     return {
+      careers: [],
       form: {
         rut: "",
         name: "",
@@ -60,8 +76,25 @@ export default {
       }
     };
   },
+  mounted() {
+    this.getCareers();
+  },
   methods: {
-    submit() {}
+    getCareers() {
+      // TODO en un futuro estas carreras deben ser consumidas de algun servicio disponibilizado por le Backend
+      this.careers = [
+        { name: "Diseño en Comunicación Visual" },
+        { name: "Ingeniería Civil Biomédica" },
+        { name: "Ingeniería Civil en Telemática" },
+        { name: "Otra" }
+      ];
+    },
+    submit() {
+      // TODO definir la ruta POST a donde enviaremos los datos.
+      /*
+      axios.post(URL).then(()=>{}).catch((error)=>{console.log('error', error)});
+       */
+    }
   }
 };
 </script>
