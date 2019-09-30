@@ -5,14 +5,9 @@ pipeline {
     stage('Deploy Image') {
       steps{
          script {
+               dockerImage = docker.build("siturrausach/mingeso-front:tagname")
             dockerImage.push()
          }
-      }
-    }
-
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
 

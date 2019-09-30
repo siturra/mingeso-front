@@ -16,7 +16,7 @@ COPY .env.example ./.env
 RUN npm install
 
 # Generate build
-RUN npm run build
+#RUN npm run build
 
 ############
 ### Prod ###
