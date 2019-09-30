@@ -1,62 +1,47 @@
-pipeline {
-  def app
-  stages {
-        stage('Clone repository') {
-                        steps {
-/* Let's make sure we have the repository cloned to our workspace */
+node {
+    def app
 
-            checkout scm
-        }
-        }
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
 
-        stage('Sonarqube') {
-            environment {
-                scannerHome = tool 'SonarQubeScanner'
-            }
-            steps {
-                withSonarQubeEnv('Sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        checkout scm
+    }
 
-        stage('Build image') {
-            steps {
-            /* This builds the actual image; synonymous to
-             * docker build on the command line */
+    stage('SonarQube analysis') {
+        def scannerHome = tool 'SonarQubeScanner';
+        withSonarQubeEnv('Sonarqube') { // If you have configured more than one global server connection, you can specify its name
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
+    }
 
-            app = docker.build("siturrausach/mingeso-front")
-        }
-        }
 
-        stage('Test image') {
-            steps {
-            app.inside {
-                sh 'echo "Tests passed"'
-            }
-            }
-        }
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
 
-        stage('Push image') {
-            steps {
-            /* Finally, we'll push the image with two tags:
-             * First, the incremental build number from Jenkins
-             * Second, the 'latest' tag.
-             * Pushing multiple tags is cheap, as all the layers are reused. */
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                app.push("${env.BUILD_NUMBER}")
-                app.push("latest")
-            }
-        }
-        }
+        app = docker.build("siturrausach/mingeso-front")
+    }
 
-        stage('Deploy') {
-            steps {
-                echo 'Deploying'
-            }
+    stage('Test image') {
+        app.inside {
+            sh 'echo "Tests passed"'
+        }
+    }
+
+    stage('Push image') {
+        /* Finally, we'll push the image with two tags:
+         * First, the incremental build number from Jenkins
+         * Second, the 'latest' tag.
+         * Pushing multiple tags is cheap, as all the layers are reused. */
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
+    }
+
+    stage('Deploy') {
+        steps {
+            echo 'Deploying'
         }
     }
 }
