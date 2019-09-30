@@ -40,8 +40,6 @@ node {
     }
 
     stage('Deploy') {
-        steps {
-            echo 'Deploying'
-        }
+        echo 'Continue in next iteration with CD...'
     }
 }
