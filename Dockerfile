@@ -13,10 +13,10 @@ RUN rm -rf /tmp/* /var/cache/apk/*
 # Install app dependencies
 COPY . /app
 COPY .env.example ./.env
-#RUN npm install
+RUN npm install
 
 # Generate build
-#RUN npm run build
+RUN npm run build
 
 ############
 ### Prod ###
@@ -26,7 +26,7 @@ COPY .env.example ./.env
 FROM nginx:alpine
 
 # Copy artifact build from the 'build environment'
-#COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
