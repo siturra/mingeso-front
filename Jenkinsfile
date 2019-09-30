@@ -1,14 +1,10 @@
 pipeline {
     agent { dockerfile true }
-  stages {
-
-    stage('Deploy Image') {
-      steps{
-         script {
-            dockerImage.push()
-         }
-      }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'docker push siturrausach/mingeso-front:latest'
+            }
+        }
     }
-
-  }
 }
