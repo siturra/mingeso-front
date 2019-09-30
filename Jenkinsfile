@@ -1,11 +1,17 @@
 pipeline {
     agent { dockerfile true }
   stages {
-    stage('Building image') {
+    stage('Deploy Image') {
       steps{
-        script {
-          docker.build registry + ":$BUILD_NUMBER"
+         script {
+            dockerImage.push()
+          }
         }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
   }
