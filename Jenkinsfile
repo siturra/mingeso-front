@@ -9,11 +9,11 @@ node {
 
     stage('SonarQube analysis') {
         def scannerHome = tool 'SonarQubeScanner';
-        withSonarQubeEnv('Sonarqube') { // If you have configured more than one global server connection, you can specify its name
+        withSonarQubeEnv('Sonarqube') {
           sh "${scannerHome}/bin/sonar-scanner"
         }
-    }
 
+    }
 
     stage('Build image') {
         /* This builds the actual image; synonymous to
