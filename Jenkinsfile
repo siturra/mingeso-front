@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'docker push siturrausach/mingeso-front:latest'
+                sh ''
             }
         }
     }
