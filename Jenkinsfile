@@ -1,53 +1,54 @@
 pipeline {
-    def app
+  def app
+  stages {
+        stage('Clone repository') {
+            /* Let's make sure we have the repository cloned to our workspace */
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
-    }
-
-    stage('Sonarqube') {
-        environment {
-            scannerHome = tool 'SonarQubeScanner'
+            checkout scm
         }
-        steps {
-            withSonarQubeEnv('Sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner"
+
+        stage('Sonarqube') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
             }
-            timeout(time: 10, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
+            steps {
+                withSonarQubeEnv('Sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
-    }
 
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
+        stage('Build image') {
+            /* This builds the actual image; synonymous to
+             * docker build on the command line */
 
-        app = docker.build("siturrausach/mingeso-front")
-    }
-
-    stage('Test image') {
-        app.inside {
-            sh 'echo "Tests passed"'
+            app = docker.build("siturrausach/mingeso-front")
         }
-    }
 
-    stage('Push image') {
-        /* Finally, we'll push the image with two tags:
-         * First, the incremental build number from Jenkins
-         * Second, the 'latest' tag.
-         * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+        stage('Test image') {
+            app.inside {
+                sh 'echo "Tests passed"'
+            }
         }
-    }
 
-    stage('Deploy') {
-        steps {
-            echo 'Deploying'
+        stage('Push image') {
+            /* Finally, we'll push the image with two tags:
+             * First, the incremental build number from Jenkins
+             * Second, the 'latest' tag.
+             * Pushing multiple tags is cheap, as all the layers are reused. */
+            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                app.push("${env.BUILD_NUMBER}")
+                app.push("latest")
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying'
+            }
         }
     }
 }
