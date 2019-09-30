@@ -7,6 +7,20 @@ node {
         checkout scm
     }
 
+    stage('Sonarqube') {
+        environment {
+            scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('Sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+            timeout(time: 10, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+    }
+
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
@@ -17,20 +31,6 @@ node {
     stage('Test image') {
         app.inside {
             sh 'echo "Tests passed"'
-        }
-    }
-
-    stage('Sonarqube') {
-        environment {
-            scannerHome = tool 'Sonarqube'
-        }
-        steps {
-            withSonarQubeEnv('sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-            timeout(time: 10, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-            }
         }
     }
 
