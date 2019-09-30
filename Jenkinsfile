@@ -15,8 +15,6 @@ pipeline {
                 // Run build
               sh 'cd /var/jenkins/mingeso-front && npm install && npm run build'
             }
-
-
        }
        stage('Upload') {
            steps{
