@@ -1,10 +1,12 @@
 pipeline {
     agent { dockerfile true }
-    stages {
-        stage('Test') {
-            steps {
-                sh 'ls'
-            }
+  stages {
+    stage('Building image') {
+      steps{
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
         }
+      }
     }
+  }
 }
