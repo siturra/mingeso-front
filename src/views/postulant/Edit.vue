@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <form action="">
+          <form v-on:submit.prevent="onSubmit">
             <!-- Rut -->
             <!-- TODO validar rut -->
             <div class="form-group">
@@ -38,15 +38,15 @@
                 class="form-control"
                 id="birth_date"
                 placeholder="19 de mayo de 1995"
-                v-model="form.birthDate"
+                v-model="form.dateBirth"
               />
             </div>
 
             <!-- Carrera a la que postula -->
             <div class="form-group">
-              <label for="career">Carrera a la que postula</label>
-              <select class="form-control" id="career" v-model="form.career">
-                <option v-for="(item, index) in careers" v-bind:key="index">
+              <label for="Course">Carrera a la que postula</label>
+              <select class="form-control" id="Course" v-model="form.Course">
+                <option v-for="(item, index) in Courses" v-bind:key="index">
                   {{ item.name }}
                 </option>
               </select>
@@ -64,15 +64,16 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      careers: [],
+      Courses: [],
       form: {
         rut: "",
         name: "",
-        birthDate: "",
-        career: ""
+        dateBirth: "",
+        Course: ""
       }
     };
   },
@@ -82,18 +83,29 @@ export default {
   methods: {
     getCareers() {
       // TODO en un futuro estas carreras deben ser consumidas de algun servicio disponibilizado por le Backend
-      this.careers = [
+      this.Courses = [
         { name: "Diseño en Comunicación Visual" },
         { name: "Ingeniería Civil Biomédica" },
         { name: "Ingeniería Civil en Telemática" },
         { name: "Otra" }
       ];
     },
-    submit() {
+    onSubmit() {
       // TODO definir la ruta POST a donde enviaremos los datos.
-      /*
-      axios.post(URL).then(()=>{}).catch((error)=>{console.log("error", error)});
-       */
+
+      axios
+        .post(`${process.env.VUE_APP_API_URL}/estudiantes/agregar`, {
+          name: this.form.name,
+          rut: this.form.rut,
+          course: this.form.name,
+          dateBirth: this.form.dateBirth
+        })
+        .then(() => {
+          console.log("Usuario Agregado");
+        })
+        .catch(error => {
+          console.log("error", error);
+        });
     }
   }
 };

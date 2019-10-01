@@ -36,7 +36,8 @@ export default {
   },
   methods: {
     getPostulants() {
-      axios(`${process.env.VUE_APP_API_URL}/estudiantes`)
+      axios
+        .get(`${process.env.VUE_APP_API_URL}/estudiantes`)
         .then(response => {
           this.postulants = response.data;
         })
