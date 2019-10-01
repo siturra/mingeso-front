@@ -6,10 +6,14 @@
           <table class="table table-hover">
             <thead>
               <th>Nombre del postulante</th>
+              <th>Rut</th>
+              <th>Curso</th>
             </thead>
             <tbody>
               <tr v-for="(item, index) in postulants" v-bind:key="index">
                 <td>{{ item.name }}</td>
+                <td>{{ item.rut }}</td>
+                <td>{{ item.couse }}</td>
               </tr>
             </tbody>
           </table>
@@ -20,6 +24,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -31,13 +36,11 @@ export default {
   },
   methods: {
     getPostulants() {
-      // TODO Consumir todos los postulantes desde le backend
-      this.postulants = [
-        { name: "Jhon Doe" },
-        { name: "Rafa maick" },
-        { name: "Nicky Jam" },
-        { name: "Generic man" }
-      ];
+      axios(`${process.env.VUE_APP_API_URL}/estudiantes`)
+        .then(response => {
+          this.postulants = response.data;
+        })
+        .catch(() => {});
     }
   }
 };
