@@ -78,10 +78,10 @@ export default {
     };
   },
   mounted() {
-    this.getCareers();
+    this.getCourses();
   },
   methods: {
-    getCareers() {
+    getCourses() {
       // TODO en un futuro estas carreras deben ser consumidas de algun servicio disponibilizado por le Backend
       this.Courses = [
         { name: "Diseño en Comunicación Visual" },
@@ -91,8 +91,6 @@ export default {
       ];
     },
     onSubmit() {
-      // TODO definir la ruta POST a donde enviaremos los datos.
-
       axios
         .post(`${process.env.VUE_APP_API_URL}/estudiantes/agregar`, {
           name: this.form.name,

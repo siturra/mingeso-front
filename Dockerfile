@@ -26,6 +26,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy artifact build from the 'build environment'
+COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80
