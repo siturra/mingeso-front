@@ -15,11 +15,11 @@ COPY . /app
 COPY .env.example ./.env
 RUN npm install
 
-# Generate build
-RUN npm run build
-
 # Run test build
 RUN npm test
+
+# Generate build
+RUN npm run build
 
 ############
 ### Prod ###
