@@ -18,6 +18,9 @@ RUN npm install
 # Generate build
 RUN npm run build
 
+# Run test build
+RUN npm test
+
 ############
 ### Prod ###
 ############

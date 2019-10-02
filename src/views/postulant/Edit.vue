@@ -46,7 +46,11 @@
             <div class="form-group">
               <label for="Course">Carrera a la que postula</label>
               <select class="form-control" id="Course" v-model="form.Course">
-                <option v-for="(item, index) in Courses" v-bind:key="index">
+                <option
+                  v-for="(item, index) in Courses"
+                  v-bind:key="index"
+                  :value="item.name"
+                >
                   {{ item.name }}
                 </option>
               </select>
@@ -100,7 +104,7 @@ export default {
         })
         .then(() => {
           console.log("Usuario Agregado");
-          this.$router.go('/');
+          this.$router.go("/");
         })
         .catch(error => {
           console.log("error", error);
