@@ -13,7 +13,7 @@
               <tr v-for="(item, index) in postulants" v-bind:key="index">
                 <td>{{ item.name }}</td>
                 <td>{{ item.rut }}</td>
-                <td>{{ item.couse }}</td>
+                <td>{{ item.course }}</td>
               </tr>
             </tbody>
           </table>

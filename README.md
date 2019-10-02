@@ -98,6 +98,10 @@ Sigue estos pasos:
 
 Atajo: `docker stop mingeso-front && docker rm mingeso-front && git fetch && git pull && docker build -t mingeso-front . && docker run -i -d -p 80:80 --name mingeso-front mingeso-front`
 
+### 4.3 Reconstruyendo el Docker en Producción
+
+Atajo: `docker pull siturrausach/mingeso-front && docker stop mingeso-front && docker rm mingeso-front && docker run -it -d -p 80:80 --name mingeso-front siturrausach/mingeso-front`
+ 
 ## 5. Soporte
 
 En caso de necesitar ayuda contactar a:
