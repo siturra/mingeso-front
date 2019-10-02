@@ -16,7 +16,7 @@ COPY .env.example ./.env
 RUN npm install
 
 # Run test build
-RUN npm test
+#RUN npm test
 
 # Generate build
 RUN npm run build
