@@ -88,10 +88,35 @@ export default {
     getCourses() {
       // TODO en un futuro estas carreras deben ser consumidas de algun servicio disponibilizado por le Backend
       this.Courses = [
-        { name: "Diseño en Comunicación Visual" },
         { name: "Ingeniería Civil Biomédica" },
         { name: "Ingeniería Civil en Telemática" },
-        { name: "Otra" }
+        { name: "Ingeniería Civil en Mecatrónica" },
+        { name: "Ingeniería Civil en Ambiente" },
+        { name: "Ingeniería Civil en Electricidad" },
+        { name: "Ingeniería Civil en Geografía" },
+        { name: "Ingeniería Civil en Industria" },
+        { name: "Ingeniería Civil en Informática" },
+        { name: "Ingeniería Civil en Mecánica" },
+        { name: "Ingeniería Civil en Metalurgia" },
+        { name: "Ingeniería Civil en Minas" },
+        { name: "Ingeniería Civil en Obras Civiles" },
+        { name: "Ingeniería Civil en Química" },
+        { name: "Ingeniería Comercial" },
+        { name: "Ingeniería de Alimentos" },
+        { name: "Ingeniería de Ejecución en Climatización" },
+        { name: "Ingeniería de Ejecución en Computación de Informática" },
+        { name: "Ingeniería de Ejecución en Electricidad" },
+        { name: "Ingeniería de Ejecución en Geomensura" },
+        { name: "Ingeniería de Ejecución en Industria" },
+        { name: "Ingeniería de Ejecución en Mecánica" },
+        { name: "Ingeniería de Ejecución en Metalurgia" },
+        { name: "Ingeniería de Ejecución en Minas" },
+        { name: "Ingeniería de Ejecución en Química" },
+        { name: "Ingeniería en Agronegocios" },
+        { name: "Ingeniería Civil en Biotecnología" },
+        { name: "Ingeniería Estadística" },
+        { name: "Ingeniería Física" },
+        { name: "Ingeniería Matemática" }
       ];
     },
     onSubmit() {
