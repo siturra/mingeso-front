@@ -37,7 +37,7 @@
                 type="text"
                 class="form-control"
                 id="birth_date"
-                placeholder="19 de mayo de 1995"
+                placeholder="YYYY-MM-DD"
                 v-model="form.dateBirth"
               />
             </div>
@@ -54,7 +54,7 @@
 
             <!-- Button submit -->
             <div class="form-group">
-              <button class="btn btn-primary">Grabar!</button>
+              <button class="btn btn-primary">Crear</button>
             </div>
           </form>
         </div>
@@ -100,6 +100,7 @@ export default {
         })
         .then(() => {
           console.log("Usuario Agregado");
+          this.$router.go('/');
         })
         .catch(error => {
           console.log("error", error);
