@@ -101,7 +101,13 @@ Atajo: `docker stop mingeso-front && docker rm mingeso-front && git fetch && git
 ### 4.3 Reconstruyendo el Docker en Producción
 
 Atajo: `docker pull siturrausach/mingeso-front && docker stop mingeso-front && docker rm mingeso-front && docker run -it -d -p 80:80 --name mingeso-front siturrausach/mingeso-front`
- 
+
+### 4.4 Docker swarm
+
+Ejecuta el siguiente comando si estas ejecutando docker swarm
+
+`docker service create --name mingeso-front --constraint "node.role==manager" --publish=80:80 siturrausach/mingeso-front:latest`
+
 ## 5. Soporte
 
 En caso de necesitar ayuda contactar a:
