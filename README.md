@@ -9,7 +9,7 @@
 
 ### 2.1 Requerimientos mínimos en el servidor
 
-- Memoria ram 512GB
+- Memoria ram 512MB
 - 1 vCPU
 - 1 GB SSD
 
